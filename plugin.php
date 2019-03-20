@@ -14,7 +14,7 @@ class pluginDownload extends Plugin{
             $zip = new ZipArchive;
             $res = $zip->open('plugin_to_install.zip');
             if ($res === TRUE) {
-                if(!$zip->extractTo(PATH_PLUGINS)){
+                if(!$zip->extractTo(HTML_PATH_PLUGINS)){
                     $error = -4;
                 }
                 $zip->close();
@@ -24,7 +24,7 @@ class pluginDownload extends Plugin{
             switch($error){
                 case -1:die("Couldn't download file (-1)");break;
                 case -2:die("Couldn't open zip archive (-2)");break;
-                case -4:die("Couldn't extract plugin to ".PATH_PLUGINS.' (-4)');break;
+                case -4:die("Couldn't extract plugin to ".HTML_PATH_PLUGINS.' (-4)');break;
                 
                 default:
                 case -9:die("An unexpected error happend (-9)");break;
@@ -88,7 +88,7 @@ class pluginDownload extends Plugin{
         return $html;
     }
     public function adminSidebar(){
-        return '<li class="nav-item"><a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/pluginDownload">Plugin Downloader</a></li>';
+        return '<li class="nav-item"><a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/pluginDownload">Plugin Download</a></li>';
     }
     public function adminBodyEnd(){
         $scripts  = '<script>
