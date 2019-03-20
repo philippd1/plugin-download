@@ -37,7 +37,6 @@ class pluginDownload extends Plugin{
     
     public function form(){
         global $L;
-        ini_set('max_execution_time', 0);
         $html  = '<div class="alert alert-primary" role="alert">'.$this->description().'</div>
         <input type="text" class="light-table-filter" data-table="order-table" placeholder="Search for anything..">
         <script>
