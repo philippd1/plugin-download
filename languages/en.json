@@ -1,7 +1,6 @@
 {
-	"plugin-data":
-	{
-		"name": "Download Plugins",
-		"description": "Automated Plugin Download"
+	"plugin-data": {
+		"name": "Plugin Download",
+		"description": "Automated Plugin Download + Install"
 	}
 }

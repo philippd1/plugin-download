@@ -1,10 +1,10 @@
 {
-	"author": "naplaya",
+	"author": "Philipp Dormann",
 	"email": "",
-	"website": "https://anikaiser.de",
-	"version": "0.2",
+	"website": "https://philippdormann.de",
+	"version": "1.0",
 	"releaseDate": "",
 	"license": "MIT",
-	"compatible": "3.7.1",
+	"compatible": "3.8.1",
 	"notes": ""
 }
