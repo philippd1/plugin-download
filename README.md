@@ -6,4 +6,5 @@
 [![GitHub forks](https://img.shields.io/github/forks/philippd1/admin-theme.svg?style=flat-square)](https://github.com/philippd1/admin-theme/network)
 [![GitHub stars](https://img.shields.io/github/stars/philippd1/plugin-download.svg?style=flat-square)](https://github.com/philippd1/admin-theme/stargazers)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/philippd1/plugin-download.svg?style=flat-square)
+
 Bludit plugin to download, install and activate plugins
