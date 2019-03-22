@@ -8,75 +8,41 @@ class pluginDownload extends Plugin{
         if(isset($_POST['install'])){
             $error = 0;
             $f = file_put_contents("plugin_to_install.zip", fopen($_POST['install'], 'r'), LOCK_EX);
-            if($f === false){
+            if(!$f){
                 $error = -1;
             }
             $zip = new ZipArchive;
             $res = $zip->open('plugin_to_install.zip');
-            if ($res === TRUE) {
-                if(!$zip->extractTo(HTML_PATH_PLUGINS)){
-                    $error = -4;
-                }
+            if ($res) {
+                $zip->extractTo(PATH_PLUGINS);
                 $zip->close();
             } else {
                 $error = -2;
             }
             switch($error){
-                case -1:die("Couldn't download file (-1)");break;
-                case -2:die("Couldn't open zip archive (-2)");break;
-                case -4:die("Couldn't extract plugin to ".HTML_PATH_PLUGINS.' (-4)');break;
-                
+                case 0:
+                break;
+                case -1:
+                echo 'Could not download file (error code: -1)<br><a href="'.HTML_PATH_ADMIN_ROOT.'">go back to admin page</a>';
+                exit;
+                break;
+                case -2:
+                echo 'Could not open zip archive (error code: -2)<br><a href="'.HTML_PATH_ADMIN_ROOT.'">go back to admin page</a>';
+                break;                
                 default:
-                case -9:die("An unexpected error happend (-9)");break;
-                
-                case 0:break;
+                echo 'An unexpected error happend (error code: -9)<br><a href="'.HTML_PATH_ADMIN_ROOT.'">go back to admin page</a>';
+                break;
             }
-            
+            // unlink("plugin_to_install.zip");
         }
     }
     
     public function form(){
         global $L;
         $html  = '<div class="alert alert-primary" role="alert">'.$this->description().'</div>
+        <div class="alert alert-primary" role="alert"><strong>Info: </strong> This plugin requires JS to be enabled</div>
         <input type="text" class="light-table-filter" data-table="order-table" placeholder="Search for anything..">
-        <script>
-        "use strict";
-        
-        var LightTableFilter = function (Arr) {
-            var filterInput;
-            
-            function _onInputEvent(e) {
-                filterInput = e.target;
-                var tables = document.getElementsByClassName(filterInput.getAttribute("data-table"));
-                Arr.forEach.call(tables, function (table) {
-                    Arr.forEach.call(table.tBodies, function (tbody) {
-                        Arr.forEach.call(tbody.rows, _filter);
-                    });
-                });
-            }
-            
-            function _filter(row) {
-                var text = row.textContent.toLowerCase(),
-                val = filterInput.value.toLowerCase();
-                row.style.display = text.indexOf(val) === -1 ? "none" : "table-row";
-            }
-            
-            return {
-                init: function init() {
-                    var inputs = document.getElementsByClassName("light-table-filter");
-                    Arr.forEach.call(inputs, function (input) {
-                        input.oninput = _onInputEvent;
-                    });
-                }
-            };
-        }(Array.prototype);
-        
-        document.addEventListener("readystatechange", function () {
-            if (document.readyState === "complete") {
-                LightTableFilter.init();
-            }
-        });
-        </script>
+        <script>"use strict"; var LightTableFilter=function (Arr){var filterInput; function _onInputEvent(e){filterInput=e.target; var tables=document.getElementsByClassName(filterInput.getAttribute("data-table")); Arr.forEach.call(tables, function (table){Arr.forEach.call(table.tBodies, function (tbody){Arr.forEach.call(tbody.rows, _filter);});});}function _filter(row){var text=row.textContent.toLowerCase(), val=filterInput.value.toLowerCase(); row.style.display=text.indexOf(val)===-1 ? "none" : "table-row";}return{init: function init(){var inputs=document.getElementsByClassName("light-table-filter"); Arr.forEach.call(inputs, function (input){input.oninput=_onInputEvent;});}};}(Array.prototype); document.addEventListener("readystatechange", function (){if (document.readyState==="complete"){LightTableFilter.init();}}); </script>
         <table id="plugin-download-extension-table" class="table mt-3 order-table"><thead><tr>
         <th class="border-bottom-0 w-25" scope="col">Name</th>
         <th class="border-bottom-0 d-none d-sm-table-cell" scope="col">Description</th>
